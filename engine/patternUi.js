@@ -181,95 +181,37 @@ function Component(name, view) {
   return view;
 }
 
+/*******************★**********/
 
-/*pre built ui RowView([])*/
-function RowView({
-  Direction = "center",
+/**row grid**/
+function RowGrid({
   Item = [],
-  spaceBetween = 0,
-  spaceLeft = 0,
-  spaceRight = 0,
-  spaceTop = 0,
-  spaceBottom = 0,
-  scrollAble = false,
-  Background = {} // ⬅️ User custom styles
+  Columns = 3,
+  Gap = "10px",
+  SpaceTop = "0px",
+  SpaceBottom = "0px",
+  SpaceLeft = "0px",
+  SpaceRight = "0px"
 }) {
-  const justifyMap = {
-    left: "flex-start",
-    center: "center",
-    right: "flex-end"
-  };
+  try {
+    const wrapper = View({
+      Type: "div",
+      Background: {
+        display: "grid",
+        gridTemplateColumns: `repeat(auto-fill, minmax(${100 / Columns}%, 1fr))`,
+        gap: Gap,
+        paddingTop: SpaceTop,
+        paddingBottom: SpaceBottom,
+        paddingLeft: SpaceLeft,
+        paddingRight: SpaceRight,
+        width: "100%",
+        boxSizing: "border-box"
+      },
+      Children: Item
+    });
 
-  const defaultStyle = {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: justifyMap[Direction] || "center",
-    alignItems: "stretch",
-    width: "100%",
-    paddingLeft: `${spaceLeft}px`,
-    paddingRight: `${spaceRight}px`,
-    paddingTop: `${spaceTop}px`,
-    paddingBottom: `${spaceBottom}px`,
-    overflowX: scrollAble ? "auto" : "hidden",
-    gap: `${spaceBetween}px`,
-    boxSizing: "border-box"
-  };
-
-  return View({
-    Type: "div",
-    Background: { ...defaultStyle, ...Background }, // 🔁 Merge custom style
-    Children: Item.map(child => {
-      return View({
-        Type: "div",
-        Background: {
-          flex: "1 1 0%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          boxSizing: "border-box"
-        },
-        Children: [child]
-      });
-    })
-  });
-}
-
-
-
-function VerticalButton({ img, title }) {
-  return View({
-    Type: "button",
-    Class: "vertical-button",
-    Background: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "10px",
-      border: "1px solid #ccc",
-      borderRadius: "6px",
-      backgroundColor: "#f9f9f9",
-      cursor: "pointer"
-    },
-    Children: [
-      View({
-        Type: "img",
-        Attrs: { src: img, alt: title },
-        Background: {
-          width: "40px",
-          height: "40px",
-          objectFit: "contain",
-          marginBottom: "8px"
-        }
-      }),
-      View({
-        Type: "span",
-        Html: title,
-        Background: {
-          fontSize: "14px",
-          color: "#333"
-        }
-      })
-    ]
-  });
+    return wrapper;
+  } catch (e) {
+    LogError("RowGrid", e);
+  }
 }
