@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carbon Authenticating by Carbon Cloud</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #f0f4f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      user-select: none;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255 255 255 / 0.09);
+      border-radius: 20px;
+      box-shadow:
+        0 12px 36px rgba(0, 0, 0, 0.5),
+        inset 0 0 24px rgba(255, 255, 255, 0.15);
+      padding: 50px 60px;
+      max-width: 420px;
+      width: 100%;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transition: box-shadow 0.3s ease;
+    }
+    .container:hover {
+      box-shadow:
+        0 20px 50px rgba(247, 169, 34, 0.5),
+        inset 0 0 40px rgba(255, 255, 255, 0.25);
+    }
+
+    /* Illustration */
+    .illustration {
+      margin-bottom: 36px;
+      max-width: 160px;
+      margin-left: auto;
+      margin-right: auto;
+      filter: drop-shadow(0 0 6px #f7a922cc);
+    }
+
+    /* Heading */
+    h1 {
+      font-weight: 700;
+      font-size: 2.4rem;
+      margin: 0 0 20px;
+      color: #f7a922;
+      letter-spacing: 1px;
+    }
+
+    /* Subtitle */
+    p {
+      color: #d1d7de;
+      font-size: 1.15rem;
+      margin: 0 0 44px;
+      line-height: 1.6;
+    }
+
+    /* Captcha box */
+    .captcha-box {
+      border: 2px solid rgba(255 255 255 / 0.4);
+      border-radius: 14px;
+      padding: 32px 28px;
+      max-width: 340px;
+      margin: 0 auto 50px;
+      box-shadow: inset 0 0 30px rgba(247, 169, 34, 0.25);
+      backdrop-filter: blur(10px);
+      user-select: none;
+      transition: border-color 0.3s ease;
+    }
+    .captcha-box:focus-within {
+      border-color: #f7a922;
+      box-shadow: inset 0 0 36px #f7a922aa;
+    }
+
+    /* Checkbox label */
+    label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #ffe082;
+      user-select: none;
+    }
+
+    /* Checkbox style */
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 28px;
+      height: 28px;
+      border: 3px solid rgba(255 224 130 / 0.8);
+      border-radius: 10px;
+      margin-right: 18px;
+      position: relative;
+      transition: border-color 0.4s ease, background-color 0.4s ease;
+      background-color: transparent;
+      box-shadow: 0 0 10px rgba(247, 169, 34, 0.5);
+      flex-shrink: 0;
+    }
+    input[type="checkbox"]:checked {
+      border-color: #f7a922;
+      background: linear-gradient(135deg, #f7a922, #f4d03f);
+      box-shadow: 0 0 24px #f7a922cc;
+    }
+    input[type="checkbox"]:checked::after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 11px;
+      width: 9px;
+      height: 16px;
+      border: solid #1b1b1b;
+      border-width: 0 5px 5px 0;
+      transform: rotate(45deg);
+      animation: checkmarkFadeIn 0.3s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes checkmarkFadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Button */
+    button {
+      background: linear-gradient(135deg, #f7a922, #f4d03f);
+      border: none;
+      border-radius: 20px;
+      color: #1b1b1b;
+      font-weight: 900;
+      font-size: 1.35rem;
+      padding: 18px 0;
+      width: 100%;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.5s ease, box-shadow 0.4s ease;
+      box-shadow: 0 0 28px #f7a922bb;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+    button:disabled {
+      background: rgba(247, 169, 34, 0.4);
+      box-shadow: none;
+      cursor: not-allowed;
+      color: #ccc;
+    }
+    button:hover:not(:disabled) {
+      background: linear-gradient(135deg, #f4d03f, #f7a922);
+      box-shadow: 0 0 40px #f7a922ee;
+    }
+
+    /* Spinner */
+    .spinner {
+      margin: 28px auto 0;
+      width: 50px;
+      height: 50px;
+      border: 6px solid rgba(255, 255, 255, 0.15);
+      border-top: 6px solid #f7a922;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none;
+      filter: drop-shadow(0 0 6px #f7a922cc);
+    }
+    .spinner.active {
+      display: block;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+
+    /* Footer */
+    .footer-text {
+      font-size: 14px;
+      color: #cfd8dc;
+      margin-top: 56px;
+      letter-spacing: 1.4px;
+      font-weight: 500;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" role="main" aria-label="Human Verification">
+
+    <!-- Shield Illustration -->
+    <svg class="illustration" width="160" height="160" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" >
+      <defs>
+        <linearGradient id="shieldGradient" x1="32" y1="2" x2="32" y2="62" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#f7a922" stop-opacity="0.9"/>
+          <stop offset="1" stop-color="#f4d03f" stop-opacity="0.6"/>
+        </linearGradient>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+          <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#f7a922" flood-opacity="0.8"/>
+        </filter>
+      </defs>
+      <path d="M32 2 L12 12v16c0 15 10 28 20 30 10-2 20-15 20-30V12z" fill="url(#shieldGradient)" stroke="#f7a922" stroke-width="3" filter="url(#glow)"/>
+      <path d="M20 34 L28 42 L44 26" stroke="#1b1b1b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" />
+    </svg>
+
+    <h1>Carbon Authenticating</h1>
+    <p>By Carbon Cloud — Please verify you are human to continue.</p>
+
+    <div class="captcha-box" role="group" aria-labelledby="captchaLabel" tabindex="0">
+      <label for="humanCheck">
+        <input type="checkbox" id="humanCheck" aria-describedby="captchaDesc" />
+        I'm not a robot
+      </label>
+      <div id="captchaDesc" style="font-size:15px; color:#ffe082; margin-top:10px;">
+        This helps protect the Carbon Cloud platform.
+      </div>
+    </div>
+
+    <button id="submitBtn" disabled aria-label="Verify you are human">Verify</button>
+
+    <div class="spinner" id="spinner" aria-label="Loading verification"></div>
+
+    <div class="footer-text">© 2025 Carbon Cloud Security</div>
+  </div>
+
+<script>
+  const SESSION_KEY = 'carbon_auth_session';
+  const MAX_SESSION_AGE = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+
+  const checkbox = document.getElementById('humanCheck');
+  const button = document.getElementById('submitBtn');
+  const spinner = document.getElementById('spinner');
+  const container = document.querySelector('.container');
+
+  // Using sessionStorage (change to localStorage if needed)
+  const storage = sessionStorage;
+
+  // Check if session is valid
+  function checkSession() {
+    const sessionData = storage.getItem(SESSION_KEY);
+    if (!sessionData) return false;
+
+    try {
+      const session = JSON.parse(sessionData);
+      const now = Date.now();
+
+      if (
+        !session.isVerified || 
+        !session.time || 
+        now - session.time > MAX_SESSION_AGE
+      ) {
+        storage.removeItem(SESSION_KEY);
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      storage.removeItem(SESSION_KEY);
+      return false;
+    }
+  }
+
+  // Show success message and redirect after verification
+  function showSuccessAndRedirect() {
+    container.innerHTML = `
+      <svg class="illustration" width="160" height="160" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" >
+        <defs>
+          <linearGradient id="successShieldGradient" x1="32" y1="2" x2="32" y2="62" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#4ade80" stop-opacity="0.9"/>
+            <stop offset="1" stop-color="#22c55e" stop-opacity="0.7"/>
+          </linearGradient>
+          <filter id="successGlow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#4ade80" flood-opacity="0.85"/>
+          </filter>
+        </defs>
+        <path d="M32 2 L12 12v16c0 15 10 28 20 30 10-2 20-15 20-30V12z" fill="url(#successShieldGradient)" stroke="#4ade80" stroke-width="3" filter="url(#successGlow)"/>
+        <path d="M20 34 L28 42 L44 26" stroke="#0f290e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#successGlow)" />
+      </svg>
+      <h1 style="color:#4ade80;">Verification Complete</h1>
+      <p style="color:#c7f0cc; font-size:1.2rem;">You have been verified as human.<br>Redirecting...</p>
+    `;
+
+    setTimeout(() => {
+      window.location.href = "Public.html?page=main";
+    }, 1500);
+  }
+
+  window.addEventListener('load', () => {
+    if (checkSession()) {
+      showSuccessAndRedirect();
+      return;
+    }
+
+    checkbox.addEventListener('change', () => {
+      button.disabled = !checkbox.checked;
+    });
+
+    button.addEventListener('click', () => {
+      button.disabled = true;
+      checkbox.disabled = true;
+      spinner.classList.add('active');
+
+      // Simulate async verification delay
+      setTimeout(() => {
+        spinner.classList.remove('active');
+
+        const sessionObj = {
+          time: Date.now(),
+          isVerified: true,
+          others: {
+            // Add extra data here if needed
+          }
+        };
+
+        storage.setItem(SESSION_KEY, JSON.stringify(sessionObj));
+
+        showSuccessAndRedirect();
+      }, 2200);
+    });
+  });
+</script>
+
+</body>
+</html>

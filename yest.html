@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Charset -->
+  <meta charset="UTF-8">
+
+  <!-- Viewport for Mobile Devices (Zoom disabled) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- Theme & Browser Colors -->
+  <meta name="theme-color" content="#0d47a1">
+  <meta name="msapplication-navbutton-color" content="#0d47a1">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- SEO Meta Tags -->
+  <meta name="title" content="Carbon Pattern UI Framework">
+  <meta name="description" content="A blazing fast and modern UI framework designed for flexibility and beauty.">
+  <meta name="keywords" content="Carbon, UI Framework, JavaScript, SPA, PatternUI">
+  <meta name="author" content="Porag Studio">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta for Social Sharing -->
+  <meta property="og:title" content="Carbon Pattern UI Framework">
+  <meta property="og:description" content="A blazing fast and modern UI framework designed for flexibility and beauty.">
+  <meta property="og:image" content="cover.jpg">
+  <meta property="og:url" content="https://yourdomain.com">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" type="sys/png" href="favicon.png">
+
+  <!-- Manifest for Progressive Web App -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/engine/uikit/beer.css">
+  <script src="/engine/uikit/beer.js"type="module"></script>
+<!--themes js-->
+  <script src="/engine/themes.js"></script>
+  <!--user themes-->
+  <script src="/engine/userTheme.js"defer></script>
+  <!-- Title -->
+  <title>Carbon Pattern UI Framework</title>
+<!--security check-->
+
+  <!-- Security & UI Protections -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Disable text selection & right click
+      document.body.onselectstart = () => false;
+      document.body.oncontextmenu = () => false;
+
+      // Prevent drag & drop
+      document.body.ondragstart = () => false;
+    });
+  </script>
+  <!--Advanced Fediractor-->
+
+</head>
+<body>
+  <!-- Application Root -->
+  <div id="app"></div>
+  <footer>
+  <nav class="bottom">
+    <button class="circle transparent">
+      <i>menu</i>
+    </button>
+    <h6 class="max center-align">Headline</h6>
+    <button class="circle transparent">
+      <img class="responsive" src="/favicon.png">
+    </button>
+  </nav>
+</footer>
+<div class="padding">
+  <button class="vertical responsive">
+    <img src="gh">
+    <span>Home</span>
+  </button>
+</div>
+  <!-- External JavaScript Files -->
+
+  <!-- Add more views/functions below as needed -->
+</body>
+</html>

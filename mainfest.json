@@ -1,0 +1,23 @@
+{
+  "name": "Carbon Pattern UI Framework",
+  "short_name": "CarbonUI",
+  "description": "A modern, blazing-fast JavaScript UI framework.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0d47a1",
+  "theme_color": "#0d47a1",
+  "orientation": "portrait",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

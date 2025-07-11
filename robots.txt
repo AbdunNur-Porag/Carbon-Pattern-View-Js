@@ -1,0 +1,15 @@
+# Allow all search engines full access
+User-agent: *
+Allow: /
+
+# Disallow sensitive or private directories
+Disallow: /private/
+Disallow: /admin/
+Disallow: /temp/
+Disallow: /engine/debug/
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl delay (optional for performance)
+# Crawl-delay: 10
