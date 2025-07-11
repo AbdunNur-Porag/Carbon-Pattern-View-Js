@@ -29,9 +29,49 @@ function Title(){
 // rowgrid
 com.RowGrid = RowGrid({
   Columns: 4,
-  Gap: "3px",
+  Gap: "2px",
   Item:[
-    Button("Hello"),Button("Hello"),Button("Hello"),Button("Hello"),Button("Hello"),Button("Hello"),Button("Hello"),Button("Hello"),
+ View({
+   Type:"Button",
+   Class:["vertical","no-round","ripple","transparent","border"],
+   Children:{
+     img:View({Type:"img",Attrs:{src:"x.png"}}),
+     span:View({Type:"span",Html:"Home"})
+   }
+ }),
+ View({
+  Type: "Button",
+  Class: ["vertical", "no-round", "ripple", "transparent", "border"],
+  Children: {
+    img: View({ Type: "img", Attrs: { src: "x.png" } }),
+    span: View({ Type: "span", Html: "Home" })
+  }
+}),
+View({
+  Type: "Button",
+  Class: ["vertical", "no-round", "ripple", "transparent", "border"],
+  Children: {
+    img: View({ Type: "img", Attrs: { src: "x.png" } }),
+    span: View({ Type: "span", Html: "Home" })
+  }
+}),View({
+  Type: "Button",
+  Class: ["vertical", "no-round", "ripple", "transparent", "border"],
+  Children: {
+    img: View({ Type: "img", Attrs: { src: "x.png" } }),
+    span: View({ Type: "span", Html: "Home" })
+  }
+}),
+View({
+  Type: "Button",
+  Class: ["vertical", "no-round", "ripple", "transparent", "border"],
+  Children: {
+    img: View({ Type: "img", Attrs: { src: "x.png" } }),
+    span: View({ Type: "span", Html: "Home" })
+  }
+}),
+    
+    
     
   ]
   
