@@ -28,8 +28,8 @@ function Title(){
 
 // rowgrid
 com.RowGrid = RowGrid({
-  Columns: 5,
-  Gap: "5px",
+  Columns: 4,
+  Gap: "3px",
   Item:[
     Button("Hello"),Button("Hello"),Button("Hello"),Button("Hello"),Button("Hello"),Button("Hello"),Button("Hello"),Button("Hello"),
     
